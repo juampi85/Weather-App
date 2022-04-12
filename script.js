@@ -22,7 +22,7 @@ function buscarTemperatura(e) {
 // Función para consultar la API y devolver el resultado
 function datosAPI(ciudad, pais) {
   // Esta API utiliza una key, por lo que la debo agregar
-  const appId = "31b33df22fe2b492d9b74843003438fe";
+  const appId = "82417cc2ec959ddf5794ea5de0306153";
   let url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`;
 
   // Esta función imita el "procesamiendo de datos" a través de un spinner

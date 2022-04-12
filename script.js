@@ -27,5 +27,42 @@ function datosAPI(ciudad, pais ) {
       })
       .then(datos => {
           console.log(datos);
+          mostrarTemperatura(datos);
     });
 };
+
+
+
+// Función para dar formato a las temperaturas resultantes
+function mostrarTemperatura(datos) {  
+    const { name, main: { temp, temp_max, temp_min } } = datos;
+  
+    const grados = temp;
+    const min = temp_max;
+    const max = temp_min;
+  
+    const nombreCiudad = document.createElement('p');
+    nombreCiudad.innerHTML = `Clima en: ${name}`;
+    nombreCiudad.classList.add('font-bold', 'text-2xl')
+  
+    const actual = document.createElement('p');
+    actual.innerHTML = `${grados} &#8451;`;
+    actual.classList.add('font-bold', 'text-6xl')
+  
+    const tempMaxima = document.createElement('p');
+    tempMaxima.innerHTML = `Max: ${max} &#8451;`;
+    tempMaxima.classList.add('text-xl')
+  
+    const tempMinima = document.createElement('p');
+    tempMinima.innerHTML = `Min: ${min} &#8451;`;
+    tempMinima.classList.add('text-xl')
+  
+    const resultadoDiv = document.createElement('div');
+    resultadoDiv.classList.add('text-center', 'text-white')
+    resultadoDiv.appendChild(nombreCiudad);
+    resultadoDiv.appendChild(actual);
+    resultadoDiv.appendChild(tempMaxima);
+    resultadoDiv.appendChild(tempMinima);
+  
+    resultado.appendChild(resultadoDiv)
+  };

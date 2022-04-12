@@ -26,20 +26,22 @@ function datosAPI(ciudad, pais ) {
         return respuesta.json();
       })
       .then(datos => {
-          console.log(datos);
           mostrarTemperatura(datos);
     });
 };
 
+// Función para convertir la temperatura de Kelvin a Grados Centígrados
+function kelvinACentigrados(grados) {
+    return parseInt( grados - 273.15);
+  };
 
-
-// Función para dar formato a las temperaturas resultantes
-function mostrarTemperatura(datos) {  
+// Función para mostrar las temperaturas en la pantalla
+  function mostrarTemperatura(datos) {  
     const { name, main: { temp, temp_max, temp_min } } = datos;
   
-    const grados = temp;
-    const min = temp_max;
-    const max = temp_min;
+    const grados = kelvinACentigrados(temp);
+    const min = kelvinACentigrados(temp_max);
+    const max = kelvinACentigrados(temp_min);
   
     const nombreCiudad = document.createElement('p');
     nombreCiudad.innerHTML = `Clima en: ${name}`;

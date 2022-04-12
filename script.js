@@ -16,15 +16,17 @@ function buscarTemperatura(e) {
     mensajeError("Ambos campos son obligatorios");
     return;
   }
-
   datosAPI(ciudad, pais);
-}
+};
 
 // Función para consultar la API y devolver el resultado
 function datosAPI(ciudad, pais) {
   // Esta API utiliza una key, por lo que la debo agregar
   const appId = "31b33df22fe2b492d9b74843003438fe";
   let url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`;
+
+  // Esta función imita el "procesamiendo de datos" a través de un spinner
+  Spinner();
 
   fetch(url)
     .then((respuesta) => {
@@ -39,7 +41,7 @@ function datosAPI(ciudad, pais) {
         mostrarTemperatura(datos);
       }
     });
-}
+};
 
 // Función para convertir la temperatura de Kelvin a Grados Centígrados
 function kelvinACentigrados(grados) {
@@ -53,8 +55,8 @@ function mostrarTemperatura(datos) {
     main: { temp, temp_max, temp_min },
     sys: {country}
   } = datos;
-  
-// acá convierto las temperaturas en grados Kelvin a Centígradas
+
+// Acá convierto las temperaturas en grados Kelvin a Centígradas
   const grados = kelvinACentigrados(temp);
   const min = kelvinACentigrados(temp_max);
   const max = kelvinACentigrados(temp_min);
@@ -84,14 +86,14 @@ function mostrarTemperatura(datos) {
   resultadoDiv.appendChild(tempMinima);
 
   resultado.appendChild(resultadoDiv);
-}
+};
 
 // Función para limpiar las temperaturas consultadas previamente
 function limpiarHTML() {
   while (resultado.firstChild) {
     resultado.removeChild(resultado.firstChild);
   }
-}
+};
 
 // Función para validar que se completen ambos renglones (y con datos válidos)
 function mensajeError(mensaje) {
@@ -124,4 +126,29 @@ function mensajeError(mensaje) {
       alerta.remove();
     }, 2000);
   }
-}
+};
+
+// Función con propósitos estéticos para simular el procesamiento/búsqueda (es de la página https://tobiasahlin.com/spinkit/)
+function Spinner() {
+
+    limpiarHTML();
+  
+    const divSpinner = document.createElement('div');
+    divSpinner.classList.add('sk-fading-circle');
+  
+    divSpinner.innerHTML = `
+      <div class="sk-circle1 sk-circle"></div>
+      <div class="sk-circle2 sk-circle"></div>
+      <div class="sk-circle3 sk-circle"></div>
+      <div class="sk-circle4 sk-circle"></div>
+      <div class="sk-circle5 sk-circle"></div>
+      <div class="sk-circle6 sk-circle"></div>
+      <div class="sk-circle7 sk-circle"></div>
+      <div class="sk-circle8 sk-circle"></div>
+      <div class="sk-circle9 sk-circle"></div>
+      <div class="sk-circle10 sk-circle"></div>
+      <div class="sk-circle11 sk-circle"></div>
+      <div class="sk-circle12 sk-circle"></div>
+    `;
+    resultado.appendChild(divSpinner);
+  };

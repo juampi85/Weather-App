@@ -26,6 +26,7 @@ function datosAPI(ciudad, pais ) {
         return respuesta.json();
       })
       .then(datos => {
+          limpiarHTML();
           mostrarTemperatura(datos);
     });
 };
@@ -41,7 +42,7 @@ function kelvinACentigrados(grados) {
   
     const grados = kelvinACentigrados(temp);
     const min = kelvinACentigrados(temp_max);
-    const max = kelvinACentigrados(temp_min);
+const max = kelvinACentigrados(temp_min);
   
     const nombreCiudad = document.createElement('p');
     nombreCiudad.innerHTML = `Clima en: ${name}`;
@@ -68,3 +69,10 @@ function kelvinACentigrados(grados) {
   
     resultado.appendChild(resultadoDiv)
   };
+
+// Función para limpiar las temperaturas consultadas previamente
+function limpiarHTML() {
+    while(resultado.firstChild) {
+        resultado.removeChild(resultado.firstChild);
+    }
+};
